@@ -32,7 +32,7 @@ docker run --name lookupd -p 4160:4160 -p 4161:4161 nsqio/nsq /nsqlookupd
 [nsqlookupd] 2020/09/29 13:02:11.975103 INFO: TCP: listening on [::]:4160
 ```
 
-### 3.nsqdを立てる
+#### 3.nsqdを立てる
 以下のコマンドでホストのIPアドレスを確認。
 
 ```
