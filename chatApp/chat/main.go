@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"go-programming-blueprints/chatApp/trace"
 	"html/template"
 	"log"
+	"my_go-programming-blueprints/chatApp/trace"
 	"net/http"
 	"os"
 	"path/filepath"

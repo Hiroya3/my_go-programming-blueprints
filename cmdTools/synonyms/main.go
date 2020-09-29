@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"go-programming-blueprints/cmdTools/thesaurus"
 	"log"
+	"my_go-programming-blueprints/cmdTools/thesaurus"
 	"os"
 )
 
