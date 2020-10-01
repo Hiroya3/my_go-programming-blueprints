@@ -46,3 +46,28 @@ IPアドレスを確認した上で以下のコマンドを実行。
 ```
 docker run --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd --broadcast-address=<hostのipアドレス> --lookupd-tcp-address=<hostのipアドレス>:4160
 ```
+
+## MongoDBをdockerで立てる
+書籍ではローカルにMongoDBのインストールを行っていましたが、
+自分はdockerで立てました。
+(macを使っています)
+
+### 立て方
+基本的に[公式サイト](https://hub.docker.com/_/mongo)の通りに行いました。
+
+### イメージをpullする
+以下のコマンドで `mongo` をpullする
+
+```
+docker pull mongo
+```
+
+### mongoを立てる
+以下のコマンドで `mongo` を立てます
+
+```
+docker run --name some-mongo -d mongo:tag
+```
+
+`some-mongo` はコンテナの名前。
+`tag` はコンテナの名前。
