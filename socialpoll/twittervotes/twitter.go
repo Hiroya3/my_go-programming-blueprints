@@ -85,6 +85,7 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 	//初期化コードは1回のみ
 	authSetupOnce.Do(func() {
 		setupTwitterAuth()
+		//デフォルトではタイムアウトが設定されていないので入れるべき
 		httpClient = &http.Client{
 			Transport: &http.Transport{
 				//TODO：TCPコネクションの実現
