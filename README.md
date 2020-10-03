@@ -2,6 +2,7 @@
 [『Go言語によるWebアプリケーション開発』(Mat Ryer著、鵜飼文敏監訳、牧野聡訳; O'Reilly Japan)](https://github.com/oreilly-japan/go-programming-blueprints)の勉強用リポジトリ
 
 
+# DockerでNSQとMongoDBコンテナを立てる
 ## NSQをdockerで立てる
 書籍ではローカルにnsqのインストールを行っていましたが、
 自分はdockerで立てました。
@@ -55,14 +56,14 @@ docker run --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd --broadcast-add
 ### 立て方
 基本的に[公式サイト](https://hub.docker.com/_/mongo)の通りに行いました。
 
-### イメージをpullする
+### 1.イメージをpullする
 以下のコマンドで `mongo` をpullする
 
 ```
 docker pull mongo
 ```
 
-### mongoを立てる
+### 2.mongoを立てる
 以下のコマンドで `mongo` を立てます
 
 ```
