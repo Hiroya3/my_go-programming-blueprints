@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/bitly/go-nsq"
 	"gopkg.in/mgo.v2"
 )
 
@@ -38,6 +39,23 @@ func loadOptions() ([]string, error) {
 	}
 	iter.Close()
 	return options, iter.Err()
+}
+
+func publishVotes(votes <-chan string) <-chan struct{} {
+	stopchan := make(chan struct{}, 1)
+	pub, _ := nsq.NewProducer("localhost:4150", nsq.NewConfig())
+	go func() {
+		for vote := range votes {
+			//投票内容（mongoDBで指定した言葉が含まれるtweet）をパブリッシュします
+			pub.Publish("votes", []byte(vote))
+		}
+		log.Fatalln("Publisher : 停止中です")
+		pub.Stop()
+		log.Fatalln("Publisher：停止しました")
+		//deferでも良い
+		stopchan <- struct{}{}
+	}()
+	return stopchan
 }
 
 //概要
