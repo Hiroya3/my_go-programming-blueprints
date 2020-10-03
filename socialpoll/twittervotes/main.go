@@ -56,7 +56,7 @@ func publishVotes(votes <-chan string) <-chan struct{} {
 		}
 		log.Fatalln("Publisher : 停止中です")
 		pub.Stop()
-		log.Fatalln("Publisher：停止しました")
+		log.Fatalln("Publisher : 停止しました")
 		//deferでも良い
 		stopchan <- struct{}{}
 	}()
