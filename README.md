@@ -57,14 +57,14 @@ docker run --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd --broadcast-add
 基本的に[公式サイト](https://hub.docker.com/_/mongo)の通りに行いました。
 
 ### 1.イメージをpullする
-以下のコマンドで `mongo` をpullする
+以下のコマンドで `mongo` をpullする。
 
 ```
 docker pull mongo
 ```
 
 ### 2.mongoを立てる
-以下のコマンドで `mongo` を立てます
+以下のコマンドで `mongo` を立てます。
 
 ```
 docker run --name some-mongo -d mongo:tag
@@ -72,3 +72,47 @@ docker run --name some-mongo -d mongo:tag
 
 `some-mongo` はコンテナの名前。
 `tag` はコンテナの名前。
+
+# MongoDBにデータをinsert
+上記で立てたMongoDBに対してデータをinsertする方法。
+
+## 1.dockerコンテナの起動
+MongoDBが起動されていない場合は起動します。
+起動済みの場合は2に進んでください。
+下記コマンドでdockerIDを確認します。
+
+```
+docker ps -a
+```
+
+`CONTAINER ID` を確認してください。
+
+その後、以下のコマンドを実行してdockerコンテナを起動します。
+
+```
+docker run {CONTAINER ID}
+```
+
+## 2.MongoDBにアクセス
+[公式リファレンス](https://hub.docker.com/_/mongo)を参照しています。
+
+以下のコマンドを実行し、dockerコンテナのシェルにアクセスする。
+
+```
+docker exec -it {CONTAINER ID} bash
+```
+
+## 3.データベースの作成
+MongoDBのシェル内で以下のコマンドを実行。
+
+```
+use {DB名}
+```
+
+## 4.データのインサート
+下記のコマンドで作成したDBにデータのコレクションにデータを追加します。
+※作成したDBに切り替わっていることを確認してください。
+
+```
+db.{コレクション名}.insert({データ})
+```
