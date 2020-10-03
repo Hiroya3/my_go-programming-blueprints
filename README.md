@@ -90,7 +90,7 @@ docker ps -a
 その後、以下のコマンドを実行してdockerコンテナを起動します。
 
 ```
-docker run {CONTAINER ID}
+docker start {CONTAINER ID}
 ```
 
 ## 2.MongoDBにアクセス
