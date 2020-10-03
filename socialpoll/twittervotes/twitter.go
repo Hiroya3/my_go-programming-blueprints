@@ -87,10 +87,9 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 	//初期化コードは1回のみ
 	authSetupOnce.Do(func() {
 		setupTwitterAuth()
-		//デフォルトではタイムアウトが設定されていないので入れるべき
+		//デフォルトではタイムアウトが設定されていないので本当は入れるべき
 		httpClient = &http.Client{
 			Transport: &http.Transport{
-				//TODO：TCPコネクションの実現
 				Dial: dial,
 			},
 		}
@@ -149,4 +148,28 @@ func readFromTwitter(votes chan<- string) {
 		}
 	}
 
+}
+
+func startTwitterStream(stopchan <-chan struct{}, votes chan<- string) <-chan struct{} {
+	stoppedchan := make(chan struct{}, 1)
+	go func() {
+		defer func() {
+			//空のstructを使うことで、フィールドがない為メモリを全く消費しない
+			//bool等でもいいがその場合、メモリを1つ消費してしまう
+			stoppedchan <- struct{}{}
+		}()
+		for {
+			select {
+			case <-stopchan:
+				log.Println("Twitterへの問い合わせを終了します...")
+				return
+			default:
+				log.Println("Twitterに問い合わせます...")
+				readFromTwitter(votes)
+				log.Println(" (待機中) ")
+				time.Sleep(10 * time.Second)
+			}
+		}
+	}()
+	return stoppedchan
 }
