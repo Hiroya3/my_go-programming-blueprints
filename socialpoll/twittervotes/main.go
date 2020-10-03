@@ -32,6 +32,7 @@ func loadOptions() ([]string, error) {
 	//find(nil)はフィルタリングを行わない
 	iter := db.DB("ballots").C("polls").Find(nil).Iter()
 	var p poll
+	//nextで次にあった場合には引数に結果を入れる(スライスだが、1つづつしか入らない(?))
 	for iter.Next(&p) {
 		options = append(options, p.Options...)
 	}
@@ -39,4 +40,8 @@ func loadOptions() ([]string, error) {
 	return options, iter.Err()
 }
 
+//概要
+//mongoDBにある言葉を検索し、ランキングにする
+//本書では投票とあるのは、mongoDBにあらかじめある言葉を検索し数を数えることが
+//その言葉に対する投票に見立てている
 func main() {}
