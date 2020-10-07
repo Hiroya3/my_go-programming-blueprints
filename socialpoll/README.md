@@ -66,11 +66,10 @@ docker pull mongo
 以下のコマンドで `mongo` を立てます。
 
 ```
-docker run --name some-mongo -d mongo:tag
+docker run --name some-mongo -p27017:27017 -d mongo
 ```
 
 `some-mongo` はコンテナの名前。
-`tag` はコンテナの名前。
 
 # MongoDBにデータをinsert
 上記で立てたMongoDBに対してデータをinsertする方法。
