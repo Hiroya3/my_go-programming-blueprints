@@ -12,13 +12,17 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+///dockerHostのIPアドレスは
+///192.168.10.103
+
 var db *mgo.Session
 
 //mongoDBへの接続
 func dialdb() error {
 	var err error
-	log.Println("MongiDBにダイヤル中：localhost")
-	db, err = mgo.Dial("localhost")
+	log.Println("MongoDBにダイヤル中：192.168.10.103")
+	//{docker Host ip(自分のIP)}:{mongoのポート}で指定
+	db, err = mgo.Dial("192.168.10.103:27017")
 	return err
 }
 
@@ -48,7 +52,7 @@ func loadOptions() ([]string, error) {
 
 func publishVotes(votes <-chan string) <-chan struct{} {
 	stopchan := make(chan struct{}, 1)
-	pub, _ := nsq.NewProducer("localhost:4150", nsq.NewConfig())
+	pub, _ := nsq.NewProducer("192.168.10.103:4150", nsq.NewConfig())
 	go func() {
 		for vote := range votes {
 			//投票内容（mongoDBで指定した言葉が含まれるtweet）をパブリッシュします
@@ -85,7 +89,7 @@ func main() {
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
 	if err := dialdb(); err != nil {
-		log.Fatalln("MongoDB屁のダイヤルに失敗しました：", err)
+		log.Fatalln("MongoDBへのダイヤルに失敗しました：", err)
 	}
 	defer closedb()
 
