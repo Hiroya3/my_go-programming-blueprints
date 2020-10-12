@@ -95,7 +95,7 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 		}
 	})
 	formEnc := params.Encode()
-	req.Header.Set("Content-Type", "application/x-www-form-urlencode")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Content-Length", strconv.Itoa(len(formEnc)))
 	req.Header.Set("Authorization", authClient.AuthorizationHeader(creds, "POST", req.URL, params))
 	return httpClient.Do(req)
@@ -128,7 +128,7 @@ func readFromTwitter(votes chan<- string) {
 
 	resp, err := makeRequest(req, query)
 	if err != nil {
-		log.Println("検索のリクエストに失敗しました：", err)
+		log.Panicln("検索のリクエストに失敗しました：", err)
 		return
 	}
 
