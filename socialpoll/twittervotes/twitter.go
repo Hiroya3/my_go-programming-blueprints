@@ -37,7 +37,7 @@ func dial(netw, addr string) (net.Conn, error) {
 var reader io.ReadCloser
 
 //接続を切る
-func closeConn() {
+func CloseCon() {
 	if conn != nil {
 		conn.Close()
 	}
@@ -54,10 +54,10 @@ var (
 //環境変数を読み込む
 func setupTwitterAuth() {
 	var ts struct {
-		ConsumerKey    string `env:"SP_TWITTER_KEY",required`
-		ConsumerSecret string `env:"SP_TWITTER_SECRET",required`
-		AccessToken    string `env:"SP_TWITTER_ACCESSTOKEN",required`
-		AccessSecret   string `env:"SP_TWITTER_ACCESSSECRET",required`
+		ConsumerKey    string `env:"SP_TWITTER_KEY,required"`
+		ConsumerSecret string `env:"SP_TWITTER_SECRET,required"`
+		AccessToken    string `env:"SP_TWITTER_ACCESSTOKEN,required"`
+		AccessSecret   string `env:"SP_TWITTER_ACCESSSECRET,required"`
 	}
 
 	//環境変数読み込み
