@@ -112,7 +112,7 @@ MongoDBのシェル内で以下のコマンドを実行。
 
 ```
 mongo (シェルの起動)
-use {DB名}
+use ballots
 ```
 
 ## 4.データのインサート
@@ -120,5 +120,5 @@ use {DB名}
 ※作成したDBに切り替わっていることを確認してください。
 
 ```
-db.{コレクション名}.insert({データ})
+db.polls.insert({"title":"今の気分は？","options":["happy","sad","fail","win"]})
 ```
