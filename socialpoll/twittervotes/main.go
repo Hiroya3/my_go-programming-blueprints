@@ -28,7 +28,7 @@ func dialdb() error {
 
 //mongoDBへの接続を解除
 func closedb() {
-	db.Clone()
+	db.Close()
 	log.Println("データベース接続が閉じられました")
 }
 
@@ -58,9 +58,9 @@ func publishVotes(votes <-chan string) <-chan struct{} {
 			//投票内容（mongoDBで指定した言葉が含まれるtweet）をパブリッシュします
 			pub.Publish("votes", []byte(vote))
 		}
-		log.Fatalln("Publisher : 停止中です")
+		log.Println("Publisher : 停止中です")
 		pub.Stop()
-		log.Fatalln("Publisher : 停止しました")
+		log.Println("Publisher : 停止しました")
 		//deferでも良い
 		stopchan <- struct{}{}
 	}()
