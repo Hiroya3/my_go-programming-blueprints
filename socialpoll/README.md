@@ -111,6 +111,7 @@ docker exec -it {CONTAINER ID} bash
 MongoDBのシェル内で以下のコマンドを実行。
 
 ```
+mongo (シェルの起動)
 use {DB名}
 ```
 
