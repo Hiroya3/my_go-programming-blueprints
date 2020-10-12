@@ -20,7 +20,7 @@ var conn net.Conn
 
 //TwitterとのAPIの接続(net.Conn)を作成
 func dial(netw, addr string) (net.Conn, error) {
-	//はじめに閉じないと、異常終了等で接続が切れた場合、net.Connが彷徨う
+	//はじめに閉じないと、異常終了等で接続が切れいた場合、net.Connが彷徨う
 	if conn != nil {
 		conn.Close()
 		conn = nil
