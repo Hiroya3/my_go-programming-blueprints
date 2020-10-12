@@ -47,6 +47,13 @@ IPアドレスを確認した上で以下のコマンドを実行。
 docker run --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd --broadcast-address=<hostのipアドレス> --lookupd-tcp-address=<hostのipアドレス>:4160
 ```
 
+#### 4.nsq_tailの利用
+以下のコマンドでnsq_tailを利用する
+
+```
+docker run nsqio/nsq /nsq_tail --lookupd-http-address=<hostのipアドレス>:4161 --topic="votes"
+```
+
 ## MongoDBをdockerで立てる
 書籍ではローカルにMongoDBのインストールを行っていましたが、
 自分はdockerで立てました。
