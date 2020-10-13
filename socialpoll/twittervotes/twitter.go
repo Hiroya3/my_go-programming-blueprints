@@ -37,7 +37,7 @@ func dial(netw, addr string) (net.Conn, error) {
 var reader io.ReadCloser
 
 //接続を切る
-func CloseCon() {
+func closeConn() {
 	if conn != nil {
 		conn.Close()
 	}
@@ -66,8 +66,8 @@ func setupTwitterAuth() {
 	}
 
 	creds = &oauth.Credentials{
-		Token:  ts.AccessSecret,
-		Secret: ts.AccessToken,
+		Token:  ts.AccessToken,
+		Secret: ts.AccessSecret,
 	}
 
 	authClient = &oauth.Client{
@@ -128,7 +128,7 @@ func readFromTwitter(votes chan<- string) {
 
 	resp, err := makeRequest(req, query)
 	if err != nil {
-		log.Panicln("検索のリクエストに失敗しました：", err)
+		log.Println("検索のリクエストに失敗しました：", err)
 		return
 	}
 

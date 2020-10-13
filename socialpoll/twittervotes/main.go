@@ -83,7 +83,7 @@ func main() {
 		stoplock.Unlock()
 		log.Println("停止します...")
 		stopChan <- struct{}{}
-		CloseCon()
+		closeConn()
 	}()
 
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
@@ -102,7 +102,7 @@ func main() {
 	go func() {
 		for {
 			time.Sleep(1 * time.Minute)
-			CloseCon()
+			closeConn()
 			stoplock.Lock()
 			if stop {
 				stoplock.Unlock()
