@@ -39,3 +39,12 @@ func withVars(fn http.HandlerFunc) http.HandlerFunc {
 		fn(w, r)
 	}
 }
+
+//CORSに対応（Ajaxにおいて、ブラウザはwebサーバーと同じドメインで公開されているサービスにしかアクセスできないため）p.155
+func withCORS(fn http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Expose=headers", "Location")
+		fn(w, r)
+	}
+}
