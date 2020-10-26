@@ -1,13 +1,13 @@
 package meander
 
 type Facede interface {
-	public() interface{}
+	Public() interface{}
 }
 
-func public(o interface{}) interface{} {
+func Public(o interface{}) interface{} {
 	//public()が実装されているか
 	if p, ok := o.(Facede); ok {
-		return p.public()
+		return p.Public()
 	}
 	return o
 }

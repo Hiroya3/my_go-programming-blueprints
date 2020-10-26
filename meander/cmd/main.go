@@ -19,5 +19,9 @@ func main() {
 
 //抽象化
 func respond(w http.ResponseWriter, r *http.Request, data []interface{}) error {
-	return json.NewEncoder(w).Encode(data)
+	publicData := make([]interface{}, len(data))
+	for i, d := range data {
+		publicData[i] = meander.Public(d)
+	}
+	return json.NewEncoder(w).Encode(publicData)
 }
