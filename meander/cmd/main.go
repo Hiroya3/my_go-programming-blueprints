@@ -21,6 +21,7 @@ func main() {
 func respond(w http.ResponseWriter, r *http.Request, data []interface{}) error {
 	publicData := make([]interface{}, len(data))
 	for i, d := range data {
+		//public.goのPublic()を使い、Publicが実装されているか確認
 		publicData[i] = meander.Public(d)
 	}
 	return json.NewEncoder(w).Encode(publicData)
