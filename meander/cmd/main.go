@@ -16,11 +16,11 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	//APIKeyの読み込み
 	meander.APIKey = os.Getenv("GOOGLE_PLACES_API_KEY")
-	http.HandleFunc("/journeys", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/journeys", cors(func(w http.ResponseWriter, r *http.Request) {
 		respond(w, r, meander.Journeys)
-	})
+	}))
 
-	http.HandleFunc("/recommendations", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/recommendations", cors(func(w http.ResponseWriter, r *http.Request) {
 		q := &meander.Query{
 			Journey: strings.Split(r.URL.Query().Get("journey"), "|"),
 		}
@@ -30,7 +30,7 @@ func main() {
 		q.CostRangeStr = r.URL.Query().Get("cost")
 		places := q.Run()
 		respond(w, r, places)
-	})
+	}))
 	http.ListenAndServe(":8080", http.DefaultServeMux)
 }
 
@@ -42,4 +42,11 @@ func respond(w http.ResponseWriter, r *http.Request, data []interface{}) error {
 		publicData[i] = meander.Public(d)
 	}
 	return json.NewEncoder(w).Encode(publicData)
+}
+
+func cors(f http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		f(w, r)
+	}
 }
