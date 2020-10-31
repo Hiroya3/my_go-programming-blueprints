@@ -2,10 +2,13 @@ package main
 
 import (
 	"encoding/json"
-	"my_go-programming-blueprints/meander"
 	"net/http"
 	"os"
 	"runtime"
+	"strconv"
+	"strings"
+
+	"github.com/my_go-programming-blueprints/meander"
 )
 
 func main() {
@@ -15,6 +18,18 @@ func main() {
 	meander.APIKey = os.Getenv("GOOGLE_PLACES_API_KEY")
 	http.HandleFunc("/journeys", func(w http.ResponseWriter, r *http.Request) {
 		respond(w, r, meander.Journeys)
+	})
+
+	http.HandleFunc("/recomendations", func(w http.ResponseWriter, r *http.Request) {
+		q := &meander.Query{
+			Journey: strings.Split(r.URL.Query().Get("journey"), "|"),
+		}
+		q.Lat, _ = strconv.ParseFloat(r.URL.Query().Get("lat"), 64)
+		q.Lng, _ = strconv.ParseFloat(r.URL.Query().Get("lng"), 64)
+		q.Radius, _ = strconv.Atoi(r.URL.Query().Get("radius"))
+		q.CostRangeStr = r.URL.Query().Get("cost")
+		places := q.Run()
+		respond(w, r, places)
 	})
 	http.ListenAndServe(":8080", http.DefaultServeMux)
 }
