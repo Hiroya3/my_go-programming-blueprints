@@ -82,7 +82,7 @@ func (q *Query) find(types string) (*googleResponse, error) {
 	return &response, nil
 }
 
-//問い合わせを一斉に行い、その結果を返します
+//問い合わせを並列に行い、その結果を返します
 func (q *Query) Run() []interface{} {
 	rand.Seed(time.Now().UnixNano())
 	var w sync.WaitGroup
