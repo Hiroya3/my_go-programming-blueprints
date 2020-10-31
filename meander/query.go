@@ -14,18 +14,18 @@ import (
 var APIKey string
 
 type Place struct {
-	*googleGemetry `json:"geometry"`
-	Name           string         `json:"name"`
-	Icon           string         `json:"icon"`
-	Photos         []*googlePhoto `json:"photos"`
-	Vicinity       string         `json:"vicinity"`
+	*googleGeometry `json:"geometry"`
+	Name            string         `json:"name"`
+	Icon            string         `json:"icon"`
+	Photos          []*googlePhoto `json:"photos"`
+	Vicinity        string         `json:"vicinity"`
 }
 
 type googleResponse struct {
 	Results []*Place `json:"results"`
 }
 
-type googleGemetry struct {
+type googleGeometry struct {
 	*googleLocation `json:"location"`
 }
 
@@ -67,7 +67,7 @@ func (q *Query) find(types string) (*googleResponse, error) {
 	vals.Set("key", APIKey)
 	if len(q.CostRangeStr) > 0 {
 		r := ParseCostRange(q.CostRangeStr)
-		vals.Set("minprice", fmt.Sprintf("d", int(r.From)-1))
+		vals.Set("minprice", fmt.Sprintf("%d", int(r.From)-1))
 		vals.Set("maxprice", fmt.Sprintf("%d", int(r.To)-1))
 	}
 	res, err := http.Get(u + "?" + vals.Encode())
