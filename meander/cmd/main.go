@@ -20,7 +20,7 @@ func main() {
 		respond(w, r, meander.Journeys)
 	})
 
-	http.HandleFunc("/recomendations", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/recommendations", func(w http.ResponseWriter, r *http.Request) {
 		q := &meander.Query{
 			Journey: strings.Split(r.URL.Query().Get("journey"), "|"),
 		}
