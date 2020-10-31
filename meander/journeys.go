@@ -12,7 +12,7 @@ var Journeys = []interface{}{
 	&j{Name: "ショッピング", PlaceTypes: []string{"department_store", "cafe", "clothing_store", "jewelry_store", "shoe_store"}},
 	&j{Name: "ナイトライフ", PlaceTypes: []string{"bar", "casino", "food", "bar", "night_club", "bar", "bar", "hospital"}},
 	&j{Name: "カルチャー", PlaceTypes: []string{"museum", "cafe", "cemetery", "library", "art_gallery"}},
-	&j{Name: "リラックス", PlaceTypes: []string{"hair_cafe", "beauty_salon", "cafe", "spa"}},
+	&j{Name: "リラックス", PlaceTypes: []string{"hair_care", "beauty_salon", "cafe", "spa"}},
 }
 
 func (j *j) Public() interface{} {
