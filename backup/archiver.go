@@ -19,9 +19,11 @@ type zipper struct{}
 var ZIP Archiver = (*zipper)(nil)
 
 func (z *zipper) Archive(src, dest string) error {
+	//保存先のディレクトリが存在するか確認。なければ0777の権限で作成。
 	if err := os.MkdirAll(filepath.Dir(dest), 0777); err != nil {
 		return err
 	}
+	//保存先のディレクトリにファイルを新規作成
 	out, err := os.Create(dest)
 	if err != nil {
 		return err
@@ -29,9 +31,10 @@ func (z *zipper) Archive(src, dest string) error {
 	defer out.Close()
 	w := zip.NewWriter(out)
 	defer w.Close()
+	//srcのファイルパスの全てのファイルについてfuncの関数が行われる
 	return filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
-			return nil //スキップします
+			return nil //フォルダなのでスキップします
 		}
 		if err != nil {
 			return err
