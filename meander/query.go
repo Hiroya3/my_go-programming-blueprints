@@ -14,22 +14,22 @@ import (
 var APIKey string
 
 type Place struct {
-	googleGeometry `json:"geometry"`
-	Name           string        `json:"name"`
-	Icon           string        `json:"icon"`
-	Photos         []googlePhoto `json:"photos"`
-	Vicinity       string        `json:"vicinity"`
+	*GoogleGeometry `json:"geometry"`
+	Name            string         `json:"name"`
+	Icon            string         `json:"icon"`
+	Photos          []*googlePhoto `json:"photos"`
+	Vicinity        string         `json:"vicinity"`
 }
 
 type googleResponse struct {
-	Results []Place `json:"results"`
+	Results []*Place `json:"results"`
 }
 
-type googleGeometry struct {
-	googleLocation `json:"location"`
+type GoogleGeometry struct {
+	*GoogleLocation `json:"location"`
 }
 
-type googleLocation struct {
+type GoogleLocation struct {
 	Lat float64 `json:"lat"`
 	Lng float64 `json:"lng"`
 }
