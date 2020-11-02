@@ -78,6 +78,7 @@ func main() {
 		}
 	case "remove":
 		var path path
+		//返り値：削除されるべきかどうか,以降への項目への処理
 		col.RemoveEach(func(i int, data []byte) (bool, bool) {
 			err := json.Unmarshal(data, &path)
 			if err != nil {
