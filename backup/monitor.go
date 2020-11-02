@@ -32,6 +32,6 @@ func (m *Monitor) Now() (int, error) {
 
 func (m *Monitor) act(path string) error {
 	dirname := filepath.Base(path)
-	filename := m.Archiver.DestFmt()(time.Now().UnixNano())
+	filename := m.Archiver.DestFmt()(time.Now().UnixNano()) //時間は返り値のfuncの引数
 	return m.Archiver.Archive(path, filepath.Join(m.Destination, dirname, filename))
 }
