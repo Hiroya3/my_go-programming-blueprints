@@ -76,7 +76,7 @@ func main() {
 			}
 			fmt.Printf("+ %s\n", path)
 		}
-	case "remove":
+	case "remove":
 		var path path
 		//返り値：削除されるべきかどうか,以降への項目への処理
 		col.RemoveEach(func(i int, data []byte) (bool, bool) {
