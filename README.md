@@ -3,4 +3,4 @@
 
 # 本書と違っているところ
 - 自分のメモとしてコメントをソースに記載しています。
-- ５章でのNSQやMongoDBをDocker上で動作させています。(socialpollフォルダのREAD.meに記載)
+- ５章でのNSQやMongoDBをDocker上で動作させています。(socialpollフォルダのREADME.mdに記載)
