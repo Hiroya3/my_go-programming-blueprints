@@ -34,6 +34,7 @@ type templateHandler struct {
 //ServeHTTPはHTTPリクエストを処理します
 //ServeHTTPメソッドがhttp.handlerインターフェイスに適合している＝内部的に呼び出されるもので、実装することで自分のsync.Onceが使えたりする
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	//コンパイルは一度だけ行う
 	t.once.Do(func() {
 		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
 	})
